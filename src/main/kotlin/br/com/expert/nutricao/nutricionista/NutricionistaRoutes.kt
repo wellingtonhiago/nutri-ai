@@ -31,7 +31,7 @@ fun Application.registerNutricionistaRoutes() {
             get {
                 val result = service.readAll()
                 if (result.isEmpty()) call.respond(HttpStatusCode.NoContent)
-                else call.respond(HttpStatusCode.OK, service.readAll())
+                else call.respond(HttpStatusCode.OK, result)
 
             }
 

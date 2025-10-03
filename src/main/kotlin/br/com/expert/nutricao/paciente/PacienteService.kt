@@ -15,6 +15,9 @@ class PacienteService(
     suspend fun create(paciente: Paciente) =
         collection.insertOne(paciente)
 
+    suspend fun readAll(): List<Paciente> =
+        collection.find().toList()
+
     suspend fun readById(id: String): Paciente? =
         collection.find(Filters.eq("_id", ObjectId(id))).firstOrNull()
 

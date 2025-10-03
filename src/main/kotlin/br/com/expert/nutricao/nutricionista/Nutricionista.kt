@@ -7,7 +7,6 @@ import java.time.Instant
 data class Nutricionista(
     val nome: String,
     val crn: String,
-    val especialidade: String,
     val createdAt: String = Instant.now().toString()
 ) {
     init {

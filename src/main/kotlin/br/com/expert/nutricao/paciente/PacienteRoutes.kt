@@ -26,6 +26,13 @@ fun Application.registerPacienteRoutes() {
                 call.respond(HttpStatusCode.Created, result)
             }
 
+            get{
+                val result = pacienteService.readAll()
+                if (result.isEmpty()) call.respond(HttpStatusCode.NoContent)
+                else call.respond(HttpStatusCode.OK, result)
+
+            }
+
             get("/{id}") {
                 val id = call.parameters["id"] ?: return@get call.respond(HttpStatusCode.BadRequest, "Id é obrigatório")
                 pacienteService.readById(id)?.let { paciente ->
