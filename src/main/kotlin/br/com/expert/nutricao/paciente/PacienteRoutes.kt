@@ -1,6 +1,6 @@
 package br.com.expert.nutricao.paciente
 
-import br.com.expert.nutricao.connectToMongoDBConfigOne
+import br.com.expert.nutricao.connectToMongoDB
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.application.Application
 import io.ktor.server.request.receive
@@ -12,8 +12,8 @@ import io.ktor.server.routing.put
 import io.ktor.server.routing.route
 import io.ktor.server.routing.routing
 
-fun Application.configurePacienteRoutes() {
-    val mongoDataBase = connectToMongoDBConfigOne()
+fun Application.registerPacienteRoutes() {
+    val mongoDataBase = connectToMongoDB()
     val pacienteService = PacienteService(mongoDataBase)
 
     routing {
@@ -22,26 +22,26 @@ fun Application.configurePacienteRoutes() {
 
             post {
                 val paciente = call.receive<Paciente>()
-                val id = pacienteService.create(paciente)
-                call.respond(HttpStatusCode.Created, id)
+                val result = pacienteService.create(paciente)
+                call.respond(HttpStatusCode.Created, result)
             }
 
             get("/{id}") {
-                val id = call.parameters["id"] ?: throw IllegalArgumentException("No ID found")
+                val id = call.parameters["id"] ?: return@get call.respond(HttpStatusCode.BadRequest, "Id é obrigatório")
                 pacienteService.readById(id)?.let { paciente ->
-                    call.respond(paciente)
+                    call.respond(HttpStatusCode.OK, paciente)
                 } ?: call.respond(HttpStatusCode.NotFound)
             }
 
             put("/{id}") {
-                val id = call.parameters["id"] ?: throw java.lang.IllegalArgumentException("No Id found")
+                val id = call.parameters["id"] ?: return@put call.respond(HttpStatusCode.BadRequest, "Id é obrigatório")
                 pacienteService.update(id, call.receive<Paciente>())?.let {
-                    call.respond(HttpStatusCode.OK)
+                    call.respond(HttpStatusCode.OK, it)
                 } ?: call.respond(HttpStatusCode.NotFound)
             }
 
             delete("/{id}") {
-                val id = call.parameters["id"] ?: throw IllegalArgumentException("No ID found")
+                val id = call.parameters["id"] ?: return@delete call.respond(HttpStatusCode.BadRequest, "Id é obrigatório")
                 pacienteService.delete(id)?.let {
                     call.respond(HttpStatusCode.OK)
                 } ?: call.respond(HttpStatusCode.NotFound)

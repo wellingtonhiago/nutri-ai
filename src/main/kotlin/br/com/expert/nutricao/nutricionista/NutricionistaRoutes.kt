@@ -10,10 +10,11 @@ import io.ktor.server.routing.post
 import io.ktor.server.routing.put
 import io.ktor.server.routing.route
 import io.ktor.server.routing.routing
+import br.com.expert.nutricao.connectToMongoDB
 
 fun Application.registerNutricionistaRoutes() {
 
-    val mongoDataBase = connectToMongoDBConfigTwo()
+    val mongoDataBase = connectToMongoDB()
     val service = NutricionistaService(mongoDataBase)
 
     routing {
