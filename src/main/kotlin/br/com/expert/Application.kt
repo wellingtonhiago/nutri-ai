@@ -1,6 +1,6 @@
 package br.com.expert
 
-import br.com.expert.exemplo.configureDatabases
+import br.com.expert.exemplo.mongo.configureDatabases
 import io.ktor.server.application.Application
 import io.ktor.server.netty.EngineMain
 

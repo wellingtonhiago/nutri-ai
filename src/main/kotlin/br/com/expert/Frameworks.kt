@@ -14,7 +14,7 @@ import io.ktor.server.routing.routing
 fun Application.configureFrameworks() {
     install(Koog) {
         llm {
-            openAI(apiKey = "your-openai-api-key")
+            openAI(apiKey = System.getenv("OPENAI_API_KEY"))
             anthropic(apiKey = "your-anthropic-api-key")
             ollama { baseUrl = "http://localhost:11434" }
             google(apiKey = "your-google-api-key")

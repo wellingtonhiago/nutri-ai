@@ -1,4 +1,4 @@
-package br.com.expert.exemplo
+package br.com.expert.exemplo.mongo
 
 import io.ktor.http.HttpStatusCode
 import io.ktor.server.application.Application
@@ -24,7 +24,7 @@ fun Application.configureDatabases() {
     routing {
         val carService = carServiceResult.getOrNull()
         if (carService != null) {
-            // Create car
+            // Create a car
             post("/cars") {
                 val car = call.receive<Car>()
                 val id = carService.create(car)
@@ -45,7 +45,7 @@ fun Application.configureDatabases() {
                     call.respond(HttpStatusCode.OK)
                 } ?: call.respond(HttpStatusCode.NotFound)
             }
-            // Delete car
+            // Delete a car
             delete("/cars/{id}") {
                 val id = call.parameters["id"] ?: throw IllegalArgumentException("No ID found")
                 carService.delete(id)?.let {

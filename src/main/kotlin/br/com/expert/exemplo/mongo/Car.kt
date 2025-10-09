@@ -1,4 +1,4 @@
-package br.com.expert.exemplo
+package br.com.expert.exemplo.mongo
 
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json

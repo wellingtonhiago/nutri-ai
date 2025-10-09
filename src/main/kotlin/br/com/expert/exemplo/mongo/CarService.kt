@@ -1,4 +1,4 @@
-package br.com.expert.exemplo
+package br.com.expert.exemplo.mongo
 
 import com.mongodb.client.MongoCollection
 import com.mongodb.client.MongoDatabase

@@ -13,8 +13,7 @@ import io.ktor.server.routing.route
 import io.ktor.server.routing.routing
 
 fun Application.registerPacienteRoutes() {
-    val mongoDataBase = connectToMongoDB()
-    val pacienteService = PacienteService(mongoDataBase)
+    val pacienteService = PacienteService(database = connectToMongoDB())
 
     routing {
 
