@@ -1,6 +1,6 @@
 package br.com.expert
 
-import br.com.expert.exemplo.mongo.configureDatabases
+import br.com.expert.exemplo.mongo.registerCarRoutes
 import io.ktor.server.application.Application
 import io.ktor.server.netty.EngineMain
 
@@ -10,7 +10,7 @@ fun main(args: Array<String>) {
 
 fun Application.module() {
     configureSerialization()
-    configureDatabases()
+    registerCarRoutes()
     configureFrameworks()
     configureRouting()
 }

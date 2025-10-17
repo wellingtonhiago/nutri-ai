@@ -1,15 +1,21 @@
 package br.com.expert
 
 import io.ktor.http.HttpStatusCode
+import io.ktor.http.content.PartData
+import io.ktor.http.content.forEachPart
+import io.ktor.http.content.readAllParts
+import io.ktor.http.content.streamProvider
 import io.ktor.server.application.Application
 import io.ktor.server.http.content.staticResources
 import io.ktor.server.request.receive
+import io.ktor.server.request.receiveMultipart
 import io.ktor.server.response.respond
 import io.ktor.server.response.respondText
 import io.ktor.server.routing.Route
 import io.ktor.server.routing.get
 import io.ktor.server.routing.post
 import io.ktor.server.routing.routing
+import io.ktor.utils.io.readByte
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.SerializationException
 
@@ -20,6 +26,8 @@ fun Application.configureRouting() {
         get("/") {
             call.respondText("Hello World!")
         }
+
+
         // Static plugin. Try to access `/static/index.html`
         staticResources("/static", "static")
     }
